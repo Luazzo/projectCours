@@ -22,6 +22,14 @@ class Bloc
     private $id;
 
     /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $user_id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)

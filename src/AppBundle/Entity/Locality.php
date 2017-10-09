@@ -22,6 +22,22 @@ class Locality
     private $id;
 
     /**
+     * @var Town
+     *
+     * @ORM\ManyToOne(targetEntity="Town", inversedBy="localities")
+     * @ORM\JoinColumn(name="town", referencedColumnName="id")
+     */
+    public $town;
+
+    /**
+     * @var Zip
+     *
+     * @ORM\ManyToOne(targetEntity="Zip", inversedBy="localities")
+     * @ORM\JoinColumn(name="zip", referencedColumnName="id")
+     */
+    public $zip;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="locality", type="string", length=255)

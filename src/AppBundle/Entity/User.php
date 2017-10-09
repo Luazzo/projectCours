@@ -8,10 +8,29 @@ use Doctrine\ORM\Mapping as ORM;
  * User
  *
  * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * @ORM\Entity(repositoryClass="UserRepository")
+ * @ORM\InheritanceType("SINGLE_TABLE")
+ * @ORM\DiscriminatorColumn(name="type_user", type="string")
+ * @ORM\DiscriminatorMap({"admin" = "User", "member" = "Member", "provider" = "Provider"})
  */
+
 class User
 {
+
+    const Type_USER = 'admin';
+    const Type_PROVIDER = 'provider';
+    const Type_MEMBER = 'member';
+
+    public function __construct() {
+        parent::__construct();
+        $this->typeUser = User::Type_USER;
+        $this->registration = new DateTime();
+        $this->confirmReg = false;
+        $this->banned = false;
+        $this->attempts = null;
+        $this->images = new ArrayCollection();
+    }
+
     /**
      * @var int
      *
@@ -20,6 +39,12 @@ class User
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Image", mappedBy="user")
+     */
+    private $images;
 
     /**
      * @var string

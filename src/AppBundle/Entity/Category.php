@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Category
@@ -20,6 +21,19 @@ class Category
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Provider", mappedBy="categories")
+     *
+     */
+    private $providers;
+
+    /**
+     * Category constructor.
+     */
+    public function __construct() {
+        $this->providers = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * @var string

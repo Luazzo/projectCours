@@ -22,6 +22,22 @@ class Abuse
     private $id;
 
     /**
+     * @var Comment
+     *
+     * @ORM\ManyToOne(targetEntity="Comment")
+     * @ORM\JoinColumn(name="comment_id", referencedColumnName="id")
+     */
+    private $comment_id;
+
+    /**
+     * @var User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     */
+    private $user_id;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="comment", type="string", length=255)

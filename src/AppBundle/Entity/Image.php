@@ -12,6 +12,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Image
 {
+    const TYPE_SLIDEHOME = 'slidehome';
+    const TYPE_SLIDEPROVIDER = 'slideprovider';
+    const TYPE_AVATAR = 'avatar';
+    const TYPE_LOGO = 'logo';
+    const TYPE_CATEGORIE = 'category';
+    const TYPE_LOGOCATEG = 'logocateg';
+    const TYPE_GALPROVIDER = 'galprovider';
+
     /**
      * @var int
      *
@@ -20,6 +28,12 @@ class Image
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="images")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    private $user;
 
     /**
      * @var string

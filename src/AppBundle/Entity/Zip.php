@@ -22,6 +22,12 @@ class Zip
     private $id;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Locality", mappedBy="zip")
+     */
+    public $localities;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="zip", type="string", length=255)

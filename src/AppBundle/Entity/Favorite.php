@@ -22,6 +22,23 @@ class Favorite
     private $id;
 
     /**
+     * @var Member
+     *
+     * @ORM\ManyToOne(targetEntity="Member", inversedBy="favorites")
+     * @ORM\JoinColumn(name="member_id", referencedColumnName="id")
+     */
+    public $member;
+
+    /**
+     * @var Provider
+     *
+     * @ORM\ManyToOne(targetEntity="Provider", inversedBy="favorites")
+     * @ORM\JoinColumn(name="provider_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+
+    public $provider;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="date", type="date")

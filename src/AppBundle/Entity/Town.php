@@ -22,6 +22,12 @@ class Town
     private $id;
 
     /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Locality", mappedBy="town")
+     */
+    public $localities;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="town", type="string", length=255)

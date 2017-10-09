@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Provider
@@ -20,6 +21,21 @@ class Provider
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    public function __construct() {
+        //$this->typeUser = User::Type_PRESTATAIRE;
+        //$this->stages = new ArrayCollection();
+        $this->promos = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+        parent::__construct();
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Category", inversedBy="providers")
+     * @ORM\JoinTable(name="providers_categories")
+     */
+    protected $categories;
 
     /**
      * @var string

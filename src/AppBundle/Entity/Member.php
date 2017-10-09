@@ -12,6 +12,26 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Member
 {
+    public function __construct() {
+        $this->typeUser = User::Type_MEMBER;
+
+        $this->ratings = new ArrayCollection();
+        $this->favorites = new ArrayCollection();
+        parent::__construct();
+    }
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Favorite", mappedBy="member")
+     */
+    public $favorites;
+
+    /**
+     * @var ArrayCollection
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Rating", mappedBy="member")
+     */
+    public $ratings;
+
     /**
      * @var int
      *

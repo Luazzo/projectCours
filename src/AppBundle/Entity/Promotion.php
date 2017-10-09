@@ -22,6 +22,22 @@ class Promotion
     private $id;
 
     /**
+     * @var Provider
+     *
+     * @ORM\ManyToOne(targetEntity="Provider", inversedBy="promotions")
+     * @ORM\JoinColumn(name="provider", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    public $provider;
+
+    /**
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    public $category;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="name", type="string", length=255)
