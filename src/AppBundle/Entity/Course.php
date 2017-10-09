@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Stage
+ * Course
  *
- * @ORM\Table(name="stage")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\StageRepository")
+ * @ORM\Table(name="course")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CourseRepository")
  */
-class Stage
+class Course
 {
     /**
      * @var int
@@ -20,6 +20,22 @@ class Stage
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var Provider
+     *
+     * @ORM\ManyToOne(targetEntity="Provider", inversedBy="stages")
+     * @ORM\JoinColumn(name="provider", referencedColumnName="id", nullable=true, onDelete="SET NULL")
+     */
+    public $provider;
+
+    /**
+     * @var Category
+     *
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    public $category;
 
     /**
      * @var string
@@ -71,9 +87,9 @@ class Stage
     private $displayStart;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="display_finish", type="date")
+     * @ORM\Column(name="display_finish", type="string", length=255)
      */
     private $displayFinish;
 
@@ -93,7 +109,7 @@ class Stage
      *
      * @param string $name
      *
-     * @return Stage
+     * @return Course
      */
     public function setName($name)
     {
@@ -117,7 +133,7 @@ class Stage
      *
      * @param string $description
      *
-     * @return Stage
+     * @return Course
      */
     public function setDescription($description)
     {
@@ -141,7 +157,7 @@ class Stage
      *
      * @param string $price
      *
-     * @return Stage
+     * @return Course
      */
     public function setPrice($price)
     {
@@ -165,7 +181,7 @@ class Stage
      *
      * @param string $info
      *
-     * @return Stage
+     * @return Course
      */
     public function setInfo($info)
     {
@@ -189,7 +205,7 @@ class Stage
      *
      * @param \DateTime $start
      *
-     * @return Stage
+     * @return Course
      */
     public function setStart($start)
     {
@@ -213,7 +229,7 @@ class Stage
      *
      * @param \DateTime $finish
      *
-     * @return Stage
+     * @return Course
      */
     public function setFinish($finish)
     {
@@ -237,7 +253,7 @@ class Stage
      *
      * @param \DateTime $displayStart
      *
-     * @return Stage
+     * @return Course
      */
     public function setDisplayStart($displayStart)
     {
@@ -259,9 +275,9 @@ class Stage
     /**
      * Set displayFinish
      *
-     * @param \DateTime $displayFinish
+     * @param string $displayFinish
      *
-     * @return Stage
+     * @return Course
      */
     public function setDisplayFinish($displayFinish)
     {
@@ -273,7 +289,7 @@ class Stage
     /**
      * Get displayFinish
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDisplayFinish()
     {
