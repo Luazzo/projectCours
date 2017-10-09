@@ -1,7 +1,9 @@
 <?php
 
 namespace AppBundle\Entity;
-
+use FOS\UserBundle\Model\User as BaseUser;
+use DateTime;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -14,19 +16,20 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\DiscriminatorMap({"admin" = "User", "member" = "Member", "provider" = "Provider"})
  */
 
-class User
+class User extends BaseUser
 {
 
     const Type_USER = 'admin';
     const Type_PROVIDER = 'provider';
     const Type_MEMBER = 'member';
 
+
     public function __construct() {
         parent::__construct();
         $this->typeUser = User::Type_USER;
         $this->registration = new DateTime();
         $this->confirmReg = false;
-        $this->banned = false;
+        $this->enabled = false;
         $this->attempts = null;
         $this->images = new ArrayCollection();
     }
@@ -38,7 +41,7 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var ArrayCollection
@@ -46,19 +49,6 @@ class User
      */
     private $images;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="email", type="string", length=255)
-     */
-    private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255, nullable=true)
-     */
-    private $password;
 
     /**
      * @var string
@@ -81,12 +71,6 @@ class User
      */
     private $registration;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="user_type", type="string", length=255, nullable=true)
-     */
-    private $userType;
 
     /**
      * @var int
@@ -95,12 +79,6 @@ class User
      */
     private $attempts;
 
-    /**
-     * @var bool
-     *
-     * @ORM\Column(name="banned", type="boolean")
-     */
-    private $banned;
 
     /**
      * @var bool
@@ -118,54 +96,6 @@ class User
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     *
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     *
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     /**
@@ -241,30 +171,6 @@ class User
     }
 
     /**
-     * Set userType
-     *
-     * @param string $userType
-     *
-     * @return User
-     */
-    public function setUserType($userType)
-    {
-        $this->userType = $userType;
-
-        return $this;
-    }
-
-    /**
-     * Get userType
-     *
-     * @return string
-     */
-    public function getUserType()
-    {
-        return $this->userType;
-    }
-
-    /**
      * Set attempts
      *
      * @param integer $attempts
@@ -288,29 +194,6 @@ class User
         return $this->attempts;
     }
 
-    /**
-     * Set banned
-     *
-     * @param boolean $banned
-     *
-     * @return User
-     */
-    public function setBanned($banned)
-    {
-        $this->banned = $banned;
-
-        return $this;
-    }
-
-    /**
-     * Get banned
-     *
-     * @return bool
-     */
-    public function getBanned()
-    {
-        return $this->banned;
-    }
 
     /**
      * Set confirmReg
